@@ -98,7 +98,7 @@
     unzip
     ruby
     python
-    nodejs
+    nodejs-5_0
     dmenu2
     haskellPackages.stack
     haskellPackages.hindent
