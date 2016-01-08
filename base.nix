@@ -98,7 +98,7 @@
     unzip
     ruby
     python
-    nodejs-5_0
+    nodejs-5_x
     dmenu2
     haskellPackages.stack
     haskellPackages.hindent
@@ -121,6 +121,8 @@
     automake
     autoconf
     gcc
+    tor
+    thunderbird
   ];
 
   # services
