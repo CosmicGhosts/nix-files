@@ -100,6 +100,7 @@
     python
     nodejs-5_x
     dmenu2
+    haskellPackages.taffybar
     haskellPackages.stack
     haskellPackages.hindent
     haskellPackages.stylish-haskell
@@ -161,8 +162,12 @@
 
       desktopManager.default = "none";
 
-      windowManager.default = "awesome";
-      windowManager.awesome.enable = true;
+      windowManager.default = "xmonad";
+      windowManager.xmonad.enable = true;
+      windowManager.xmonad.enableContribAndExtras = true;
+      windowManager.xmonad.extraPackages = haskellPackages: [
+        haskellPackages.taffybar
+      ];
 
       synaptics = {
         enable = true;
