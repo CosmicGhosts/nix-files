@@ -20,8 +20,16 @@
       preLVM = true; }
   ];
 
+  # gaming
+  hardware.opengl = {
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+  hardware.pulseaudio.support32Bit = true;
+
   # graphics
-  services.xserver.videoDrivers = [ "nouveau" "intel" ];
+  hardware.bumblebee.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" "nouveau" "intel" ];
   services.xserver.vaapiDrivers = [ pkgs.vaapiIntel ];
   services.xserver.deviceSection = ''
     #Identifier "Intel Graphics"
