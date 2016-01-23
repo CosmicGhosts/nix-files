@@ -28,8 +28,10 @@
   hardware.pulseaudio.support32Bit = true;
 
   # graphics
-  hardware.bumblebee.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" "nouveau" "intel" ];
+  # hardware.bumblebee.enable = true;
+  # services.xserver.videoDrivers = [ "nvidia" "nouveau" "intel" ];
+  hardware.nvidiaOptimus.disable = true;
+  services.xserver.videoDrivers = [ "intel" ];
   services.xserver.vaapiDrivers = [ pkgs.vaapiIntel ];
   services.xserver.deviceSection = ''
     #Identifier "Intel Graphics"
