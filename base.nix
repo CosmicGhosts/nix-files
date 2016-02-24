@@ -5,10 +5,13 @@
 { config, pkgs, ... }:
 
 let
+  lockIcon = ./lockicon.png;
+
   comptonStart =
     (pkgs.writeScriptBin "compton-start" ''
       ${pkgs.compton}/bin/compton -b --config $HOME/.compton.conf
     '');
+
   comptonToggle =
     (pkgs.writeScriptBin "compton-toggle" ''
       killall compton || ${comptonStart}/bin/compton-start
@@ -19,6 +22,7 @@ let
       revert() {
         ${pkgs.xlibs.xset}/bin/xset -dpms
       }
+
       trap revert SIGHUP SIGINT SIGTERM
       ${pkgs.xlibs.xset}/bin/xset +dpms dpms 600
       tmpdir=/run/user/$UID/lock-screen
@@ -37,34 +41,6 @@ let
       rm $tmpdir/screen.png
       revert
     '');
-  lockIcon = ./lockicon.png;
-  arc-theme = with pkgs; stdenv.mkDerivation rec {
-    version = "20151002";
-    name = "arc-gtk-theme-${version}";
-
-    src = fetchFromGitHub {
-      owner = "horst3180";
-      repo = "Arc-theme";
-      rev = version;
-      sha256 = "0ks6dgcrhbks73nn3x8zj7lwbkf5alr97ii6v6chy2x2q19h30kv";
-    };
-
-    buildInputs = [ autoconf automake pkgconfig ];
-
-    dontBuild = true;
-
-    installPhase = ''
-      ./autogen.sh --prefix=$out
-      make install
-    '';
-
-    meta = {
-      description = "Arc GTK theme";
-      homepage =  https://github.com/horst3180/Arc-theme;
-      license = stdenv.lib.licenses.gpl3;
-      platforms = stdenv.lib.platforms.all;
-    };
-  };
 
   bamf = with pkgs; stdenv.mkDerivation rec {
     name = "bamf";
@@ -133,7 +109,6 @@ let
       url = "https://launchpad.net/pantheon-files/0.2.x/0.2.4/+download/pantheon-files-0.2.4.tar.xz";
       # url = "https://launchpad.net/pantheon-terminal/${majorVersion}.x/${majorVersion}.${minorVersion}/+download/${name}.tgz";
       sha256 = "7eaf1ecd076d46bc2e43373982dd02b62663c2d2f1d4430ff771314cf4366b81";
-      # sha256 = "0bfrqxig26i9qhm15kk7h9lgmzgnqada5snbbwqkp0n0pnyyh4ss";
     };
 
     preConfigure = ''
@@ -153,6 +128,7 @@ let
 
       sqlite dbus_glib zeitgeist plank
     ];
+
     meta = {
       description = "elementary OS's terminal";
       longDescription = "A super lightweight, beautiful, and simple terminal. It's designed to be setup with sane defaults and little to no configuration. It's just a terminal, nothing more, nothing less. Designed for elementary OS.";
@@ -273,49 +249,87 @@ in
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    vim
-    emacs-24bit
-    yi
-
-    tmux-24bit
-    # pantheon-files
-
-    wget
-    gitFull
-    bazaar
-    htop
-    which
-    rxvt_unicode
-    chromium
-    firefox
-    utillinuxCurses
-    xorg.libXrandr
+    acpi
     arandr
-    networkmanagerapplet
-    pavucontrol
-    pasystray
-    stow
-    zip
-    unzip
-    ruby
-    python
-    nodejs-5_x
-    dmenu2
+    atom
+    autoconf
+    automake
+    bazaar
+    bomi
+    chromium
+    chromium
+    clipit
     compton
+    dmenu2
+    emacs-24bit
     feh
-    xlibs.xset
+    firefox
+    firefoxWrapper
+    gcc
+    gitFull
+    glxinfo
+    gparted
+    hexchat
+    htop
+    i3lock
+    lci
+    lshw
+    lxappearance
+    networkmanagerapplet
+    neovim
+    nodejs-5_x
+    # pantheon-files
+    pasystray
+    pavucontrol
+    physlock
+    powertop
+    python
+    ruby
+    rxvt_unicode
+    stow
+    telnet
+    termite
+    thunderbird
+    tlp
+    tmux-24bit
+    tor
+    transmission_gtk
+    unzip
+    utillinuxCurses
+    vifm
+    vim
+    xbrightness
+    xcape
+    xclip
+    wget
+    which
+    xlibs.xev
+    xlibs.xkill
     xorg.xmessage
+    xlibs.xmodmap
+    xlibs.xset
+    xlibs.xwininfo
+    xorg.libXrandr
+    xorg.xbacklight
+    xorg.xf86inputkeyboard
+    xorg.xmodmap
+    xsel
+    yi
+    zip
+
     openbox
     (pkgs.writeScriptBin "temp-openbox" ''
       openbox
       ~/.xmonad/xmonad-x86_64-linux "$@"
     '')
+
+    haskellPackages.cabal-install
+    haskellPackages.hindent
+    haskellPackages.purescript
+    haskellPackages.stack
+    haskellPackages.stylish-haskell
     haskellPackages.taffybar
     haskellPackages.xmonad
-    haskellPackages.stack
-    haskellPackages.hindent
-    haskellPackages.stylish-haskell
-    haskellPackages.cabal-install
     (haskellPackages.ghcWithPackages (self : [
       self.ghc
       self.cabal-install
@@ -326,64 +340,19 @@ in
       self.taffybar
       self.xmobar
     ]))
-    physlock
-    xorg.xev
-    xorg.xmodmap
-    xorg.xf86inputkeyboard
-    xcape
-    neovim
-    clipit
-    xclip
-    lci
-    termite
-    xorg.xbacklight
-    automake
-    autoconf
-    gcc
-    tor
-    thunderbird
 
-      gtk-engine-murrine
-      gtk_engines
-      numix-gtk-theme
-      arc-theme
-      numix-icon-theme
-      numix-icon-theme-circle
-      hicolor_icon_theme
-      gnome.gnomeicontheme
+    gtk-engine-murrine
+    gtk_engines
+    numix-gtk-theme
+    numix-icon-theme
+    numix-icon-theme-circle
+    hicolor_icon_theme
+    gnome.gnomeicontheme
+    # screencloud
 
-
-      audacity
-      dropbox
-      evince
-      firefoxWrapper
-      chromium
-      kde4.quasselClient
-      libreoffice
-      # screencloud
-      skype
-      teamspeak_client
-      vlc
-      pavucontrol
-      lxappearance
-      networkmanagerapplet
-      compton
-      i3lock
-
-      glxinfo
-      rxvt_unicode
-
-      xbrightness
-      xlibs.xbacklight
-      xlibs.xev
-      xlibs.xkill
-      xlibs.xmodmap
-      xlibs.xwininfo
-      xsel
-
-      lockScreen
-      comptonStart
-      comptonToggle
+    lockScreen
+    comptonStart
+    comptonToggle
   ];
 
   # services
@@ -441,6 +410,7 @@ in
       windowManager.xmonad.enableContribAndExtras = true;
       windowManager.xmonad.extraPackages = haskellPackages: [
         haskellPackages.taffybar
+        haskellPackages.xmobar
       ];
 
       synaptics = {
