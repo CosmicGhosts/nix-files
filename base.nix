@@ -282,6 +282,7 @@ in
     pasystray
     pavucontrol
     physlock
+    pianobar
     powertop
     python
     ruby
