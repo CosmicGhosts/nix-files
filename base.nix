@@ -69,6 +69,8 @@ in
   hardware.pulseaudio.enable = true;
   hardware.bluetooth.enable = false;
 
+  virtualisation.virtualbox.host.enable = true;
+
   # programs
   programs.zsh.enable = true;
 
@@ -105,6 +107,8 @@ in
       "audio"
     ];
   };
+
+  users.extraGroups.vboxusers.members = [ "seanstrom" ];
 
   # Unfree :(
   # Todo: Don't depend on Flash, use free alternatives.
@@ -168,8 +172,10 @@ in
     firefox
     firefoxWrapper
     gcc
+    gettext
     gitFull
     glxinfo
+    gnumake
     gparted
     hexchat
     htop
