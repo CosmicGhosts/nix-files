@@ -123,11 +123,10 @@ in
   };
 
   environment = {
-    variables = {
-      GTK_DATA_PREFIX = "/run/current-system/sw";
-    };
-
     extraInit = ''
+      export GTK_PATH=$GTK_PATH:${pkgs.gtk-engine-murrine}/lib/gtk-2.0
+      export GTK_DATA_PREFIX=~/.nix-profile/
+
       # SVG loader for pixbuf (needed for svg icon themes) nixpkgs issue #11259
       export GDK_PIXBUF_MODULE_FILE=$(echo ${pkgs.librsvg}/lib/gdk-pixbuf-2.0/*/loaders.cache)
 
@@ -143,12 +142,11 @@ in
       # export GTK_THEME="Numix"
     '';
 
-
-    # pathsToLink = [
-    #   "/share/themes"
-    #   "/share/icons"
-    #   "/share/pixmaps"
-    # ];
+    pathsToLink = [
+      "/share/themes"
+      "/share/icons"
+      "/share/pixmaps"
+    ];
   };
 
   # packages
