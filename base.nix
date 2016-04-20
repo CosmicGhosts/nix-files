@@ -153,6 +153,7 @@ in
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    atk
     acpi
     arandr
     atom
@@ -160,6 +161,7 @@ in
     automake
     bazaar
     bomi
+    cabal2nix
     chromium
     chromium
     clipit
@@ -173,6 +175,7 @@ in
     gettext
     gitFull
     glxinfo
+    gnome3.gnome-tweak-tool
     gnumake
     gparted
     hexchat
@@ -185,14 +188,19 @@ in
     neovim
     nodejs-5_x
     # pantheon-files
+    paper-gtk-theme
     pasystray
+    patchelf
     pavucontrol
     physlock
     pianobar
+    # plank
+    # bamf
     powertop
     python
     ruby
     rxvt_unicode
+    slack
     stow
     telnet
     termite
