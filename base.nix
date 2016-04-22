@@ -60,7 +60,7 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
 
   # kernel
-  boot.kernelPackages = pkgs.linuxPackages_4_3;
+  boot.kernelPackages = pkgs.linuxPackages_4_5;
 
   # networking
   networking.networkmanager.enable = true;
