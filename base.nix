@@ -129,17 +129,6 @@ in
 
       # SVG loader for pixbuf (needed for svg icon themes) nixpkgs issue #11259
       export GDK_PIXBUF_MODULE_FILE=$(echo ${pkgs.librsvg}/lib/gdk-pixbuf-2.0/*/loaders.cache)
-
-      # numixIconPaths=${pkgs.numix-icon-theme}:${pkgs.numix-icon-theme-circle}
-      #
-      # # GTK2 theme
-      #
-      # export GTK_PATH=$GTK_PATH:${pkgs.gtk-engine-murrine}/lib/gtk-2.0:$numixIconPaths
-      # export GTK2_RC_FILES=${pkgs.numix-gtk-theme}/share/themes/Numix/gtk-2.0/gtkrc:$GTK2_RC_FILES
-      #
-      # # GTK3 theme
-      # export GTK_DATA_PREFIX=${pkgs.numix-gtk-theme}:$GTK_DATA_PREFIX
-      # export GTK_THEME="Numix"
     '';
 
     pathsToLink = [
